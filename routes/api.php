@@ -17,7 +17,6 @@ Route::middleware('auth:sanctum')->group(function (): void {
     Route::apiResource('leave-types', LeaveTypeController::class)
         ->parameters(['leave-types' => 'leaveType']);
     Route::apiResource('leave-requests', LeaveRequestController::class)
-        ->except(['update'])
         ->parameters(['leave-requests' => 'leaveRequest']);
     Route::patch('/leave-requests/{leaveRequest}/status', [LeaveRequestController::class, 'updateStatus']);
 });

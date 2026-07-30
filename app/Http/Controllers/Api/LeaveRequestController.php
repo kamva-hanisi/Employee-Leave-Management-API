@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreLeaveRequestRequest;
+use App\Http\Requests\UpdateLeaveRequestRequest;
 use App\Http\Requests\UpdateLeaveRequestStatusRequest;
 use App\Http\Resources\LeaveRequestResource;
 use App\Models\LeaveRequest;
@@ -40,6 +41,13 @@ class LeaveRequestController extends Controller
 
     public function show(LeaveRequest $leaveRequest): LeaveRequestResource
     {
+        return new LeaveRequestResource($leaveRequest->load(['employee.user', 'leaveType']));
+    }
+
+    public function update(UpdateLeaveRequestRequest $request, LeaveRequest $leaveRequest): LeaveRequestResource
+    {
+        $leaveRequest->update($request->validated());
+
         return new LeaveRequestResource($leaveRequest->load(['employee.user', 'leaveType']));
     }
 

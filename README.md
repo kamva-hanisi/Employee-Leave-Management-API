@@ -59,6 +59,25 @@ The local base URL is:
 http://127.0.0.1:8000/api
 ```
 
+The frontend dashboard is available at:
+
+```text
+http://127.0.0.1:8000
+```
+
+If frontend assets are not installed yet, run:
+
+```bash
+npm install
+npm run build
+```
+
+During development you can run Vite in a separate terminal:
+
+```bash
+npm run dev
+```
+
 ## Demo Login
 
 The seeder creates this test user:
@@ -180,3 +199,7 @@ Allowed status values for approval are `approved` and `rejected`. New leave requ
 - Validation
 - Pagination
 - Search and filtering
+
+## Frontend
+
+The project includes a Blade and Vite frontend called LeaveDesk. It supports login/register, dashboard metrics, employee management, leave type management, leave request creation/editing/deleting, filtering, pagination, and approve/reject actions.
