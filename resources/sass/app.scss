@@ -1,27 +1,16 @@
-@import 'tailwindcss';
+@use 'sass:color';
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
-
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
-}
-
-:root {
-    --bg: #f5f7fb;
-    --panel: #ffffff;
-    --ink: #172033;
-    --muted: #667085;
-    --line: #d9e1ec;
-    --brand: #126b61;
-    --brand-dark: #0f4f49;
-    --accent: #ca8a04;
-    --danger: #b42318;
-    --success: #067647;
-    --warning: #b54708;
-}
+$bg: #f5f7fb;
+$panel: #ffffff;
+$ink: #172033;
+$muted: #667085;
+$line: #d9e1ec;
+$brand: #126b61;
+$brand-dark: #0f4f49;
+$accent: #ca8a04;
+$danger: #b42318;
+$success: #067647;
+$warning: #b54708;
 
 * {
     box-sizing: border-box;
@@ -29,9 +18,9 @@
 
 body {
     margin: 0;
-    background: var(--bg);
-    color: var(--ink);
-    font-family: var(--font-sans);
+    background: $bg;
+    color: $ink;
+    font-family: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
 }
 
 button,
@@ -43,19 +32,11 @@ textarea {
 
 button {
     cursor: pointer;
-}
 
-button:disabled {
-    cursor: not-allowed;
-    opacity: .45;
-}
-
-.hidden {
-    display: none !important;
-}
-
-.app-shell {
-    min-height: 100vh;
+    &:disabled {
+        cursor: not-allowed;
+        opacity: .45;
+    }
 }
 
 .auth-layout {
@@ -73,6 +54,21 @@ button:disabled {
     background:
         linear-gradient(rgba(13, 76, 72, .82), rgba(13, 76, 72, .82)),
         url('https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1600&q=80') center / cover;
+
+    h1 {
+        margin: 28px 0 12px;
+        font-size: clamp(2.4rem, 5vw, 4.8rem);
+        line-height: 1;
+        letter-spacing: 0;
+    }
+
+    p {
+        max-width: 620px;
+        margin: 0;
+        color: #e8f3f0;
+        font-size: 1.12rem;
+        line-height: 1.7;
+    }
 }
 
 .brand-mark {
@@ -82,30 +78,15 @@ button:disabled {
     height: 52px;
     border-radius: 8px;
     background: #ffffff;
-    color: var(--brand-dark);
+    color: $brand-dark;
     font-weight: 800;
-}
 
-.brand-mark.small {
-    width: 36px;
-    height: 36px;
-    background: var(--brand);
-    color: #ffffff;
-}
-
-.auth-copy h1 {
-    margin: 28px 0 12px;
-    font-size: clamp(2.4rem, 5vw, 4.8rem);
-    line-height: 1;
-    letter-spacing: 0;
-}
-
-.auth-copy p {
-    max-width: 620px;
-    margin: 0;
-    color: #e8f3f0;
-    font-size: 1.12rem;
-    line-height: 1.7;
+    &.small {
+        width: 36px;
+        height: 36px;
+        background: $brand;
+        color: #ffffff;
+    }
 }
 
 .auth-stats {
@@ -113,13 +94,13 @@ button:disabled {
     flex-wrap: wrap;
     gap: 12px;
     margin-top: 32px;
-}
 
-.auth-stats span {
-    padding: 10px 12px;
-    border: 1px solid rgba(255, 255, 255, .24);
-    border-radius: 8px;
-    background: rgba(255, 255, 255, .12);
+    span {
+        padding: 10px 12px;
+        border: 1px solid rgba(255, 255, 255, .24);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, .12);
+    }
 }
 
 .auth-panel {
@@ -127,17 +108,32 @@ button:disabled {
     width: min(420px, calc(100% - 40px));
     margin: 0 auto;
     padding: 24px;
-    border: 1px solid var(--line);
+    border: 1px solid $line;
     border-radius: 8px;
-    background: var(--panel);
+    background: $panel;
     box-shadow: 0 16px 50px rgba(23, 32, 51, .08);
 }
 
-.tabs {
+.tabs,
+.stack,
+.form-panel {
     display: grid;
+    gap: 14px;
+}
+
+.tabs {
     grid-template-columns: 1fr 1fr;
     gap: 8px;
     margin-bottom: 18px;
+}
+
+%button-base {
+    min-height: 38px;
+    border: 1px solid $line;
+    border-radius: 8px;
+    background: #ffffff;
+    color: $ink;
+    font-weight: 700;
 }
 
 .tab-button,
@@ -146,26 +142,15 @@ button:disabled {
 .primary-button,
 .table-action,
 .pagination button {
-    min-height: 38px;
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    background: #ffffff;
-    color: var(--ink);
-    font-weight: 700;
+    @extend %button-base;
 }
 
 .tab-button.active,
 .nav-button.active,
 .primary-button {
-    border-color: var(--brand);
-    background: var(--brand);
+    border-color: $brand;
+    background: $brand;
     color: #ffffff;
-}
-
-.stack,
-.form-panel {
-    display: grid;
-    gap: 14px;
 }
 
 label {
@@ -181,34 +166,32 @@ select,
 textarea {
     width: 100%;
     min-height: 40px;
-    border: 1px solid var(--line);
+    border: 1px solid $line;
     border-radius: 8px;
     padding: 9px 11px;
     background: #ffffff;
-    color: var(--ink);
+    color: $ink;
     outline: none;
+
+    &:focus {
+        border-color: $brand;
+        box-shadow: 0 0 0 3px rgba(18, 107, 97, .12);
+    }
 }
 
 textarea {
     resize: vertical;
 }
 
-input:focus,
-select:focus,
-textarea:focus {
-    border-color: var(--brand);
-    box-shadow: 0 0 0 3px rgba(18, 107, 97, .12);
-}
-
 .message {
     display: none;
     margin: 12px 0 0;
-    color: var(--danger);
+    color: $danger;
     font-weight: 700;
-}
 
-.message.visible {
-    display: block;
+    &.visible {
+        display: block;
+    }
 }
 
 .dashboard {
@@ -223,7 +206,7 @@ textarea:focus {
     justify-content: space-between;
     gap: 24px;
     padding: 22px;
-    border-right: 1px solid var(--line);
+    border-right: 1px solid $line;
     background: #ffffff;
 }
 
@@ -261,28 +244,28 @@ textarea:focus {
     justify-content: space-between;
     gap: 16px;
     margin-bottom: 22px;
+
+    h2 {
+        margin: 4px 0 0;
+        font-size: 1.8rem;
+    }
 }
 
 .eyebrow {
-    color: var(--brand);
+    color: $brand;
     font-size: .8rem;
     font-weight: 800;
     text-transform: uppercase;
 }
 
-.topbar h2 {
-    margin: 4px 0 0;
-    font-size: 1.8rem;
-}
-
 .user-pill {
     max-width: 340px;
     overflow: hidden;
-    border: 1px solid var(--line);
+    border: 1px solid $line;
     border-radius: 8px;
     padding: 10px 12px;
     background: #ffffff;
-    color: var(--muted);
+    color: $muted;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
@@ -296,24 +279,24 @@ textarea:focus {
 
 .metric,
 .panel {
-    border: 1px solid var(--line);
+    border: 1px solid $line;
     border-radius: 8px;
     background: #ffffff;
 }
 
 .metric {
     padding: 18px;
-}
 
-.metric span {
-    color: var(--muted);
-    font-weight: 700;
-}
+    span {
+        color: $muted;
+        font-weight: 700;
+    }
 
-.metric strong {
-    display: block;
-    margin-top: 8px;
-    font-size: 2rem;
+    strong {
+        display: block;
+        margin-top: 8px;
+        font-size: 2rem;
+    }
 }
 
 .panel {
@@ -327,12 +310,12 @@ textarea:focus {
     justify-content: space-between;
     gap: 12px;
     padding: 16px;
-    border-bottom: 1px solid var(--line);
-}
+    border-bottom: 1px solid $line;
 
-.panel-header h3 {
-    margin: 0;
-    font-size: 1rem;
+    h3 {
+        margin: 0;
+        font-size: 1rem;
+    }
 }
 
 .split-layout {
@@ -340,18 +323,18 @@ textarea:focus {
     grid-template-columns: minmax(280px, 340px) minmax(0, 1fr);
     gap: 18px;
     align-items: start;
-}
 
-.split-layout.compact {
-    grid-template-columns: minmax(260px, 320px) minmax(0, 680px);
+    &.compact {
+        grid-template-columns: minmax(260px, 320px) minmax(0, 680px);
+    }
 }
 
 .form-panel {
     padding: 16px;
-}
 
-.form-panel .panel-header {
-    margin: -16px -16px 0;
+    .panel-header {
+        margin: -16px -16px 0;
+    }
 }
 
 .button-row,
@@ -376,13 +359,13 @@ table {
 th,
 td {
     padding: 13px 16px;
-    border-bottom: 1px solid var(--line);
+    border-bottom: 1px solid $line;
     text-align: left;
     vertical-align: middle;
 }
 
 th {
-    color: var(--muted);
+    color: $muted;
     font-size: .78rem;
     font-weight: 800;
     text-transform: uppercase;
@@ -391,7 +374,7 @@ th {
 td small {
     display: block;
     margin-top: 4px;
-    color: var(--muted);
+    color: $muted;
 }
 
 .actions {
@@ -399,31 +382,31 @@ td small {
     justify-content: flex-end;
     gap: 6px;
     min-width: 170px;
-}
 
-.actions.wide {
-    min-width: 280px;
+    &.wide {
+        min-width: 280px;
+    }
 }
 
 .table-action {
     min-height: 32px;
     padding: 0 9px;
     font-size: .82rem;
-}
 
-.table-action.success {
-    border-color: rgba(6, 118, 71, .3);
-    color: var(--success);
-}
+    &.success {
+        border-color: rgba($success, .3);
+        color: $success;
+    }
 
-.table-action.warning {
-    border-color: rgba(181, 71, 8, .3);
-    color: var(--warning);
-}
+    &.warning {
+        border-color: rgba($warning, .3);
+        color: $warning;
+    }
 
-.table-action.danger {
-    border-color: rgba(180, 35, 24, .3);
-    color: var(--danger);
+    &.danger {
+        border-color: rgba($danger, .3);
+        color: $danger;
+    }
 }
 
 .status {
@@ -435,21 +418,21 @@ td small {
     font-size: .78rem;
     font-weight: 800;
     text-transform: capitalize;
-}
 
-.status.pending {
-    background: #fff7e6;
-    color: var(--accent);
-}
+    &.pending {
+        background: #fff7e6;
+        color: $accent;
+    }
 
-.status.approved {
-    background: #e9f8ef;
-    color: var(--success);
-}
+    &.approved {
+        background: #e9f8ef;
+        color: $success;
+    }
 
-.status.rejected {
-    background: #fff1f0;
-    color: var(--danger);
+    &.rejected {
+        background: #fff1f0;
+        color: $danger;
+    }
 }
 
 .pagination {
@@ -458,12 +441,12 @@ td small {
     justify-content: flex-end;
     gap: 10px;
     padding: 14px 16px;
-    color: var(--muted);
+    color: $muted;
     font-size: .9rem;
-}
 
-.pagination button {
-    padding: 0 12px;
+    button {
+        padding: 0 12px;
+    }
 }
 
 @media (max-width: 980px) {
@@ -488,7 +471,7 @@ td small {
         top: 0;
         z-index: 5;
         border-right: 0;
-        border-bottom: 1px solid var(--line);
+        border-bottom: 1px solid $line;
     }
 
     .nav-list {
